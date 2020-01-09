@@ -1,0 +1,4 @@
+#Thu Jan 09 09:19:04 CET 2020
+base.0=/Users/karenborner/Documents/GitHub/rushar-dupe/RushAroundDupe/Temp/gradleOut/build/intermediates/transforms/dexMerger/release/0
+path.0=classes.dex
+renamed.0=classes.dex

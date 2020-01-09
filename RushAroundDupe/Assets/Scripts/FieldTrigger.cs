@@ -43,7 +43,7 @@ public class FieldTrigger : MonoBehaviour
         // Because closest=point if point is inside - not clear from docs I feel
         Vector2 colliderPos = new Vector2(c.transform.position.x, c.transform.position.z);
         Vector2 cameraPos = new Vector2(point.x, point.z);
-        if (Vector2.Distance(colliderPos, cameraPos) <= 0.1f)
+        if (Vector2.Distance(colliderPos, cameraPos) <= 0.2f)
         {
             return true;
         }

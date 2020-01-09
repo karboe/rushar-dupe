@@ -5,25 +5,45 @@ using TMPro;
 
 public class CreateFields : MonoBehaviour
 {
-    Vector3 middle;
-    public GameObject field,currentTarget;
-    GameObject middleF;
+    Vector3 middle = new Vector3(0, -1, 0);
+    public GameObject field, currentTarget,game,canvas,endscreen;
+    GameObject middleF, newGame;
     public AudioSource audioSource;
     public AudioClip[] numbers;
 
     TextMeshPro number;
     public static int currentNumber = 0;
     public static bool callNumber = false;
+    int currentNumberOfFields = 0;
+    bool isRestarted = false;
+    bool isInstantiated = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        middle = this.transform.position;
-        InstantiateFields(12);
-        StartCoroutine(WaitFor(3));
+        newGame = game;
+
+       // canvas.GetComponent<Canvas>().enabled = true;
+       //endscreen.SetActive(false);
+
+        Debug.Log("Field");
+        if (!isInstantiated)
+        {
+            currentTarget.SetActive(false);
+            InstantiateFields(12);
+            isInstantiated = true;
+        }
+
+       
 
 
-        
+    }
+
+    private void Awake()
+    {
+        // middle = this.transform.position;
+       
+
     }
 
     // Update is called once per frame
@@ -31,7 +51,7 @@ public class CreateFields : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-           // CallNumber();
+            // CallNumber();
         }
         if (callNumber)
         {
@@ -42,25 +62,32 @@ public class CreateFields : MonoBehaviour
 
     void InstantiateFields(int numberOfFields)
     {
+        Debug.Log("Test");
+       
         float degree = 360 / numberOfFields;
-        for(int i = 0; i < numberOfFields; i++)
+        for (int i = 0; i < numberOfFields; i++)
         {
-            GameObject currentField =Instantiate(field, new Vector3(0, 0.001f, 1.3f),Quaternion.identity);
+            GameObject currentField = Instantiate(field, new Vector3(0, transform.position.y, 1.3f), Quaternion.identity);
 
-           
-            currentField.transform.RotateAround(middle, Vector3.up, degree+degree * i);
+
+            currentField.transform.RotateAround(middle, Vector3.up, degree + degree * i);
             currentField.transform.parent = transform;
 
             TextMeshPro n = currentField.GetComponentInChildren<TextMeshPro>();
             n.text = (i + 1).ToString();
+            n.gameObject.transform.RotateAround(n.gameObject.transform.position, Vector3.up, -degree - degree * i);
+            currentNumberOfFields++;
 
         }
-
-         middleF = Instantiate(currentTarget);
+      
+        
+        middleF = Instantiate(currentTarget, new Vector3(0, transform.position.y, 0), Quaternion.identity);
         middleF.transform.parent = transform;
+
         number = middleF.GetComponentInChildren<TextMeshPro>();
         middleF.SetActive(false);
-
+        //canvas.transform.SetAsLastSibling();
+        StartCoroutine(WaitFor(3));
 
     }
 
@@ -95,12 +122,12 @@ public class CreateFields : MonoBehaviour
     }
     void CallNumber()
     {
-        int newNumber=RandomNumber(1, 12);
+        int newNumber = RandomNumber(1, 12);
 
         if (currentNumber == newNumber)
         {
 
-             CallNumber();
+            CallNumber();
 
 
         }
@@ -111,7 +138,9 @@ public class CreateFields : MonoBehaviour
             audioSource.clip = numbers[currentNumber - 1];
             audioSource.Play();
         }
-       
-        
+
+
     }
+
+
 }

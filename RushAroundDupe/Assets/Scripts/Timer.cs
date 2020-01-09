@@ -3,24 +3,42 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class Timer : MonoBehaviour
 {
     float currentValue;
-    string countdownText="60";
+    string countdownText = "60";
     public static int currentPoints = 0;
 
-    public TextMeshProUGUI startCountdown, counter;
-    public GameObject endScreen;
+    public TextMeshProUGUI startCountdown, counter,metre;
+    public GameObject endScreen, game;
+    GameObject newGame;
     public static bool addPoint = false;
+    bool isInstantiated = false;
+    bool isRestarted = false;
 
     // Start is called before the first frame update
     void Start()
     {
-       transform.GetComponent<TextMeshProUGUI>().text=countdownText;
-        counter.text = currentPoints.ToString();
-        GetComponent<TextMeshProUGUI>().enabled = false;
-        StartCoroutine(StartCountdown(3,startCountdown));
+
+        if (!isInstantiated)
+        {
+            currentPoints = 0;
+            newGame = game;
+            endScreen.SetActive(false);
+            Debug.Log("Timer");
+            transform.GetComponent<TextMeshProUGUI>().text = countdownText;
+            counter.text = currentPoints.ToString();
+            GetComponent<TextMeshProUGUI>().enabled = false;
+            StartCoroutine(StartCountdown(3, startCountdown));
+           
+        }
+    }
+    private void Awake()
+    {
+
+
     }
 
     // Update is called once per frame
@@ -56,6 +74,7 @@ public class Timer : MonoBehaviour
         }
         endScreen.gameObject.SetActive(true);
         endScreen.GetComponentInChildren<TextMeshProUGUI>().text = currentPoints.ToString();
+        metre.text = MeasureDistance.distanceInMetre.ToString();
         yield return null;
     }
 
@@ -73,8 +92,25 @@ public class Timer : MonoBehaviour
         gameObject.GetComponent<TextMeshProUGUI>().enabled = true;
         StartCoroutine(StartCountdown());
     }
+    public void RestartGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 
+    }
+
+    IEnumerator Game()
+    {
+        GameObject n = Instantiate(newGame);
+
+        yield return null;
+        Destroy(game);
+
+    }
 
 
 
 }
+
+
+
+

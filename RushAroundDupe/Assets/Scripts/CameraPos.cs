@@ -4,17 +4,22 @@ using UnityEngine;
 
 public class CameraPos : MonoBehaviour
 {
-    Camera mycam;
-    float speed = 1;
+   
+    public GameObject game;
     // Start is called before the first frame update
     void Start()
     {
-           mycam = GetComponent<Camera>();
+        NewGame();
          
     }
 
     // Update is called once per frame
     void Update()
     {
+    }
+
+    public void NewGame()
+    {
+        Instantiate(game);
     }
 }
