@@ -22,11 +22,6 @@ public class CreateFields : MonoBehaviour
     void Start()
     {
         newGame = game;
-
-       // canvas.GetComponent<Canvas>().enabled = true;
-       //endscreen.SetActive(false);
-
-        Debug.Log("Field");
         if (!isInstantiated)
         {
             currentTarget.SetActive(false);
@@ -41,7 +36,7 @@ public class CreateFields : MonoBehaviour
 
     private void Awake()
     {
-        // middle = this.transform.position;
+       
        
 
     }
@@ -51,18 +46,18 @@ public class CreateFields : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            // CallNumber();
+
         }
         if (callNumber)
         {
             callNumber = false;
-            CallNumber();
+
+            StartCoroutine(NewNumber());
         }
     }
 
     void InstantiateFields(int numberOfFields)
     {
-        Debug.Log("Test");
        
         float degree = 360 / numberOfFields;
         for (int i = 0; i < numberOfFields; i++)
@@ -86,8 +81,33 @@ public class CreateFields : MonoBehaviour
 
         number = middleF.GetComponentInChildren<TextMeshPro>();
         middleF.SetActive(false);
-        //canvas.transform.SetAsLastSibling();
         StartCoroutine(WaitFor(3));
+
+    }
+
+    IEnumerator NewNumber()
+    {
+        int newNumber = RandomNumber(1, 12);
+
+        if (currentNumber == newNumber)
+        {
+            Debug.Log("Number");
+            StartCoroutine(NewNumber());
+            yield return null;
+
+
+
+        }
+        else
+        {
+            currentNumber = newNumber;
+            number.text = currentNumber.ToString();
+            yield return new WaitForSeconds(0.5f);
+            audioSource.clip = numbers[currentNumber - 1];
+            audioSource.Play();
+        }
+
+
 
     }
 
@@ -118,29 +138,9 @@ public class CreateFields : MonoBehaviour
     {
         yield return new WaitForSeconds(seconds);
         middleF.SetActive(true);
-        CallNumber();
+        StartCoroutine(NewNumber());
     }
-    void CallNumber()
-    {
-        int newNumber = RandomNumber(1, 12);
 
-        if (currentNumber == newNumber)
-        {
-
-            CallNumber();
-
-
-        }
-        else
-        {
-            currentNumber = newNumber;
-            number.text = currentNumber.ToString();
-            audioSource.clip = numbers[currentNumber - 1];
-            audioSource.Play();
-        }
-
-
-    }
 
 
 }

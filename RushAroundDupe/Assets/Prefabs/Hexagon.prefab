@@ -216,6 +216,7 @@ GameObject:
   - component: {fileID: 7030186589045544538}
   - component: {fileID: 5810319902972797857}
   - component: {fileID: 7011792633250276647}
+  - component: {fileID: -4905479519261054441}
   m_Layer: 0
   m_Name: Hexagon
   m_TagString: Untagged
@@ -309,3 +310,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8cf42d7f580b41c7bfca1dd0f23ab5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  orginalColor: {r: 0, g: 0, b: 0, a: 0}
+  transitionColor: {r: 0.7830189, g: 0.7830189, b: 0.7830189, a: 1}
+--- !u!111 &-4905479519261054441
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8767641476241056390}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: a80106eecb6094db2943569b86aa33b6, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: a80106eecb6094db2943569b86aa33b6, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0

@@ -45,15 +45,15 @@ public class Timer : MonoBehaviour
     void Update()
     {
         /* if (Input.GetMouseButtonDown(0))
-         {
-             currentPoints++;
-             counter.text = currentPoints.ToString();
-         }
-         if (Input.GetMouseButtonDown(1))
-         {
-             currentPoints--;
-             counter.text = currentPoints.ToString();
-         }*/
+        {
+            currentPoints++;
+            counter.text = currentPoints.ToString();
+        }
+       if (Input.GetMouseButtonDown(1))
+        {
+            currentPoints--;
+            counter.text = currentPoints.ToString();
+        }*/
         if (addPoint)
         {
             addPoint = false;
